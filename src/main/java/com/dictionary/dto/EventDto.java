@@ -6,6 +6,7 @@ import java.util.Date;
 public class EventDto implements Serializable {
     private static final long serialVersionUID = 5044900019807332791L;
     private long eventId;
+    private String eventName;
     private long specializationId;
     private Date eventDate;
     private String address;
@@ -20,6 +21,14 @@ public class EventDto implements Serializable {
 
     public void setEventId(long eventId) {
         this.eventId = eventId;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
     public long getSpecializationId() {
