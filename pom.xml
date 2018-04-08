@@ -38,6 +38,35 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
+        <!--Angular, bootstrap, jQuery-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>angularjs</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
+        <!--SwaggerConfig doc and UI-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.7.0</version>
+        </dependency>
     </dependencies>
 
     <build>
