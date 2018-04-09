@@ -2,6 +2,7 @@ package com.dictionary.dao;
 
 import com.dictionary.dto.UserDto;
 import com.dictionary.mapper.UserMapper;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -22,7 +23,7 @@ public class UserDao extends BaseDao {
         return user;
     }
 
-    public int insertUser(final UserDto userDto) {
+    public int insertUser(final UserDto userDto) throws MySQLIntegrityConstraintViolationException {
         final String sql = "insert into TBL_USER values (null, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -53,7 +54,7 @@ public class UserDao extends BaseDao {
         getTemplate().update(sql, params, types);
     }
 
-    public void insertUserAndRoles(UserDto userDto) {
+    public void insertUserAndRoles(UserDto userDto) throws MySQLIntegrityConstraintViolationException {
         int newId = insertUser(userDto);
         userRoleDao.insertUserRoles(newId);
     }

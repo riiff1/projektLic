@@ -18,8 +18,12 @@ public class RegistrationService {
 
     public int registerUser(UserDto userDto) {
         int userId = 0;
-        userId = userDao.insertUser(userDto);
-        userRoleDao.insertUserRoles(userId);
+        try {
+            userId = userDao.insertUser(userDto);
+            userRoleDao.insertUserRoles(userId);
+        } catch (MySQLIntegrityConstraintViolationException e) {
+            e.printStackTrace();
+        }
         return userId;
     }
 }
