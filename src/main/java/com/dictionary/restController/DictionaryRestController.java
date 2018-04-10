@@ -3,6 +3,7 @@ package com.dictionary.restController;
 import com.dictionary.dao.SpecializationDao;
 import com.dictionary.dto.DictionaryDto;
 import com.dictionary.dto.SpecializationDto;
+import com.dictionary.service.DictionaryService;
 import com.dictionary.service.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,18 +16,15 @@ import java.util.List;
 public class DictionaryRestController {
 
     @Autowired
-    private SessionUser sessionUser;
-
-    @Autowired
-    private SpecializationDao specializationDao;
+    private DictionaryService dictionaryService;
 
     @RequestMapping(value = "/specialization/availableByCurrentUser", method = RequestMethod.GET)
     public List<SpecializationDto> getAvailableSpecialization() {
-        return specializationDao.getAvailableSpecializationByUser(sessionUser.getUser().getUserId());
+        return dictionaryService.getAvailableSpecialization();
     }
 
     @RequestMapping(value = "/specialization", method = RequestMethod.GET)
     public List<SpecializationDto> getAllSpecialization() {
-        return specializationDao.getAllSpecialization();
+        return dictionaryService.getAllSpecialization();
     }
 }
