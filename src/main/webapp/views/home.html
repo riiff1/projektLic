@@ -1,10 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.30/angular.js"></script>
+
+    <script src="../js/controller/homeController.js"></script>
+    <script src="../js/service/homeService.js"></script>
+
+    <script>
+        window.onload = function() {setTimeout(function(){document.body.style.opacity="150";},1);};
+    </script>
+
+    <script>
+        angular.module('ui.bootstrap.demo').controller('DropdownCtrl', function ($scope, $log) {
+            $scope.items = [
+                'The first choice!',
+                'And another choice for you.',
+                'but wait! A third!'
+            ];
+
+            $scope.status = {
+                isopen: false
+            };
+
+            $scope.toggled = function(open) {
+                $log.log('Dropdown is now: ', open);
+            };
+
+            $scope.toggleDropdown = function($event) {
+                $event.preventDefault();
+                $event.stopPropagation();
+                $scope.status.isopen = !$scope.status.isopen;
+            };
+
+            $scope.appendToEl = angular.element(document.querySelector('#dropdown-long-content'));
+        });
+    </script>
 </head>
 <body>
-<p>dictionary</p>
+<div ng-controller="homeController">
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="/home" class="navbar-brand">Dictionary</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" ><span class="glyphicon glyphicon-user" ></span> Logged as {{userNickName}}</a></li>
+                    <li><a href ="/logoutt"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+<!--    <div class="container">
+        <select name="selectedSpecialization" id="singleSelect" ng-model="selectedSpecialization">
+            <option value="">-&#45;&#45;Please select specialization-&#45;&#45;</option> &lt;!&ndash; not selected / blank option &ndash;&gt;
+            <option ng-repeat="specialization in specializations" value="{{specialization.name}}">{{specialization.name}}</option>
+        </select>
+
+        <p>{{selectedSpecialization}}</p>
+    </div>-->
+
+    <div class="container">
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button"
+                    id="dropdownSpecialization" data-toggle="dropdown">
+                Specializations
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li ng-repeat="specialization in specializations | filter:searchBox" value="{{specialization.name}}" ng-click="pickedSpecializationFunction(specialization)"><a href>{{specialization.name}}</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <p>Specialization what You picked is {{pickedSpecialization}}</p>
+        <input type="text" ng-model="searchBox">
+    </div>
+
+
+
+</div>
 </body>
 </html>
