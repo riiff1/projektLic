@@ -15,9 +15,15 @@ app.service('homeService',['$http','$window', function ($http, $window) {
         });
     };
     self.pickedSpecializationFunction = function (specialization) {
-        self.scope.pickedSpecialization = specialization;
-        $http.get("/specialization/availableByCurrentUser").then(function (data) {
-            self.scope.specializations = data.data;
+        self.scope.pickedSpecialization = specialization.name;
+
+        console.log(specialization.specializationId);
+        $http({
+            method: "GET",
+            url: "/dictionaryForSpecialization",
+            params: {specializationId: specialization.specializationId}
+        }).then(function (response) {
+            self.scope.dictionaries = response.data;
         });
     }
 

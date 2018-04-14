@@ -74,15 +74,19 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li ng-repeat="specialization in specializations | filter:searchBox" value="{{specialization.name}}" ng-click="pickedSpecializationFunction(specialization)"><a href>{{specialization.name}}</a></li>
+                <li ng-repeat="specialization in specializations" value="{{specialization.name}}" ng-click="pickedSpecializationFunction(specialization)"><a href>{{specialization.name}}</a></li>
             </ul>
         </div>
-
+        <p>Specialization what You picked is {{pickedSpecialization}}</p>
     </div>
 
     <div class="container">
-        <p>Specialization what You picked is {{pickedSpecialization}}</p>
-        <input type="text" ng-model="searchBox">
+        <input type="text" ng-model="searchInDictionaries.word">
+
+        <div ng-repeat="dictionary in dictionaries | filter:searchInDictionaries:strict">
+            <p>{{dictionary.word}}</p>
+            <p>{{dictionary.expression}}</p>
+        </div>
     </div>
 
 
