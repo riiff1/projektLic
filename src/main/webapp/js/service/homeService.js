@@ -5,7 +5,6 @@ app.service('homeService',['$http','$window', function ($http, $window) {
     self.setScope = function(scope){
         self.scope = scope;
 
-
         $http.get("/loggedUser").then(function (data) {
             self.scope.userNickName = data.data;
         });
@@ -25,7 +24,19 @@ app.service('homeService',['$http','$window', function ($http, $window) {
         }).then(function (response) {
             self.scope.dictionaries = response.data;
         });
-    }
+    };
+    self.getNoteMessageForDictionary = function (dictionaryId) {
+        self.scope.isNoteMessage = false;
+        $http({
+            method: "GET",
+            url: "/note/getNoteMessageForDictionary",
+            params: {dictionaryId: dictionaryId}
+        }).then(function (response) {
+            console.log("aaaaa");
+            console.log(response);
+            self.scope.noteMessage = response;
+        });
+    };
 
 
 }]);

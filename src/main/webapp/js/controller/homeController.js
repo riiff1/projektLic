@@ -10,6 +10,10 @@ app.controller('homeController', ['$scope', 'homeService', function ($scope, hom
         homeService.pickedSpecializationFunction(specialization);
     };
 
+    $scope.getNoteMessageForDictionary = function(dictionaryId) {
+        homeService.getNoteMessageForDictionary(dictionaryId);
+    };
+
     $scope.pickedWordFromSearch = function ($item) {
         console.log("item");
         console.log($item);

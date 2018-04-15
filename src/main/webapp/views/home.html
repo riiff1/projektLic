@@ -80,7 +80,11 @@
                             <tr ng-repeat="dictionary in dictionaries | filter:searchInDictionaries:strict">
                                 <td>{{dictionary.word}}</td>
                                 <td>{{dictionary.expression}}</td>
-                                <td>aa</td>
+                                <td>
+                                    <!--<div ng-show="getNoteMessageForDictionary(dictionary.dictionaryId) != null">{{noteMessage}}</div>-->
+                                    <div ng-show="dictionary.dictionaryId == 1">{{getNoteMessageForDictionary(dictionary.dictionaryId)}}</div>
+                                    <div ng-show="dictionary.dictionaryId != 1"><button type="button" class="btn btn-success">Add Note</button></div>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

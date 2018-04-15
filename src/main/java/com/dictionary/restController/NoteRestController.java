@@ -15,6 +15,7 @@ public class NoteRestController {
 
     @RequestMapping(value = "/note/getNoteMessageForDictionary", method = RequestMethod.GET)
     public String getFutureEventsBySpecialization(@RequestParam("dictionaryId") long dictionaryId) {
+        System.out.println("aaa" + dictionaryId);
         return noteService.getNoteMessageForDictionary(dictionaryId);
     }
 }
