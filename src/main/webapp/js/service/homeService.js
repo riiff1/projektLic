@@ -19,9 +19,10 @@ app.service('homeService',['$http','$window', function ($http, $window) {
         console.log(specialization.specializationId);
         $http({
             method: "GET",
-            url: "/dictionaryForSpecialization",
+            url: "/getDictionaryAndNoteBySpecialization",
             params: {specializationId: specialization.specializationId}
         }).then(function (response) {
+            console.log(specialization.response);
             self.scope.dictionaries = response.data;
         });
     };

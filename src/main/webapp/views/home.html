@@ -81,9 +81,10 @@
                                 <td>{{dictionary.word}}</td>
                                 <td>{{dictionary.expression}}</td>
                                 <td>
-                                    <!--<div ng-show="getNoteMessageForDictionary(dictionary.dictionaryId) != null">{{noteMessage}}</div>-->
-                                    <div ng-show="dictionary.dictionaryId == 1">{{getNoteMessageForDictionary(dictionary.dictionaryId)}}</div>
-                                    <div ng-show="dictionary.dictionaryId != 1"><button type="button" class="btn btn-success">Add Note</button></div>
+                                    <div class="text-center" ng-show="dictionary.message == null"><button type="button" class="btn btn-success ">Add note</button></div>
+                                    <div ng-show="dictionary.message != null">{{dictionary.message}}
+                                        <div class="text-center"><button type="button" class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">Delete</button></div>
+                                    </div>
                                 </td>
                             </tr>
                             </tbody>
