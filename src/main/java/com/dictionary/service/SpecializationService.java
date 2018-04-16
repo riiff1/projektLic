@@ -11,13 +11,13 @@ import java.util.List;
 public class SpecializationService {
 
     @Autowired
-    private SessionUser sessionUser;
+    private UserService userService;
 
     @Autowired
     private SpecializationDao specializationDao;
 
     public List<SpecializationDto> getAvailableSpecialization() {
-        return specializationDao.getAvailableSpecializationByUser(sessionUser.getUser().getUserId());
+        return specializationDao.getAvailableSpecializationByUser(userService.getLoggedUserId());
     }
 
     public List<SpecializationDto> getAllSpecialization() {

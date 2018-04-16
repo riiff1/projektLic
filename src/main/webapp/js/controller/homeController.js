@@ -14,6 +14,27 @@ app.controller('homeController', ['$scope', 'homeService', function ($scope, hom
         homeService.getNoteMessageForDictionary(dictionaryId);
     };
 
+    $scope.deleteNote = function (dictionaryAndNote) {
+        homeService.deleteNote(dictionaryAndNote);
+    };
+
+
+    $scope.forModalParameter = function (dictionary) {
+        homeService.forModalParameter(dictionary);
+    };
+
+    $scope.saveDataFromModal = function(noteId, dictionaryId, message) {
+        homeService.saveDataFromModal(noteId, dictionaryId, message);
+    };
+
+    $scope.editNote = function (dictionaryAndNote) {
+        homeService.editNote(dictionaryAndNote);
+    };
+
+    $scope.addNote = function(dictionaryAndNote) {
+        homeService.addNote(dictionaryAndNote);
+    };
+
     $scope.pickedWordFromSearch = function ($item) {
         console.log("item");
         console.log($item);

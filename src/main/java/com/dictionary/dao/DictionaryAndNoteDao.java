@@ -15,6 +15,10 @@ public class DictionaryAndNoteDao extends BaseDao {
 
     private static final String sqlNoteMessageForDictionaryForUser = "select * from TBL_NOTE where USER_ID_FK = ? and DICTIONARY_ID_FK = ? limit 1;";
 
+    private static final String sqlDeleteNoteById = "delete from TBL_NOTE where USER_ID_FK = ? and NOTE_ID = ?;";
+    private static final String sqlUpdateNote = "update TBL_NOTE set MESSAGE = ? where NOTE_ID = ? and USER_ID_FK = ?;";
+    private static final String sqlInsertNote = "insert into TBL_NOTE values (null, ?, ?, ?);";
+
     @Autowired
     private DictionaryDao dictionaryDao;
 
@@ -39,5 +43,17 @@ public class DictionaryAndNoteDao extends BaseDao {
             noteAndDictionaryDto.add(noteAndDictionry);
         }
         return noteAndDictionaryDto;
+    }
+
+    public void removeNote(long noteId, long userId) {
+        getTemplate().update(sqlDeleteNoteById, new Object[]{userId, noteId});
+    }
+
+    public void editNote(long noteId, long userId, String message) {
+        getTemplate().update(sqlUpdateNote, new Object[]{message, noteId, userId});
+    }
+
+    public void insertNote(long userId, long dictionaryId, String message) {
+        getTemplate().update(sqlInsertNote, new Object[]{userId, dictionaryId, message});
     }
 }

@@ -12,17 +12,16 @@ import java.util.List;
 public class PaymentService {
 
     @Autowired
-    private SessionUser sessionUser;
+    private UserService userService;
+
     @Autowired
     private PaymentDao paymentDao;
 
     public List<PaymentDto> getAllPaymentsByUser() {
-        long userId = sessionUser.getUser().getUserId();
-        return paymentDao.getAllPaymentsByUser(userId);
+        return paymentDao.getAllPaymentsByUser(userService.getLoggedUserId());
     }
 
     public List<PaymentDto> getPaymentsByUserFromToDate(Date from, Date to) {
-        long userId = sessionUser.getUser().getUserId();
-        return paymentDao.getPaymentsByUserFromToDate(userId, from, to);
+        return paymentDao.getPaymentsByUserFromToDate(userService.getLoggedUserId(), from, to);
     }
 }

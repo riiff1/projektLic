@@ -19,9 +19,6 @@ app.service('registrationService',['$http','$window', function ($http, $window) 
             data: data1,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
-            console.log("tu zwracam cos");
-            console.log(response);
-            console.log(angular.element('#myModal').modal('show'));
             angular.element('#myModal').modal('show');
         }, function (error) {
             if(error.data.exception === "org.springframework.dao.DuplicateKeyException") {

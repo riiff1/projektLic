@@ -20,4 +20,19 @@ public class DictionaryAndNoteRestController {
     public List<NoteAndDictionaryDto> getDictionaryAndNoteBySpecialization(@RequestParam("specializationId") long specializationId) {
         return dictionaryAndNoteService.getDictionaryAndNoteBySpecialization(specializationId);
     }
+
+    @RequestMapping(value = "/note/removeNote", method = RequestMethod.DELETE)
+    public void removeNote(@RequestParam("noteId") long noteId) {
+        dictionaryAndNoteService.removeNote(noteId);
+    }
+
+    @RequestMapping(value = "/note/updateNote", method = RequestMethod.POST)
+    public void editNote(@RequestParam("noteId") long noteId, @RequestParam("message") String message) {
+        dictionaryAndNoteService.editNote(noteId, message);
+    }
+
+    @RequestMapping(value = "/note/insertNote", method = RequestMethod.POST)
+    public void addNote(@RequestParam("dictionaryId") long dictionaryId, @RequestParam("message") String message) {
+        dictionaryAndNoteService.insertNote(dictionaryId, message);
+    }
 }

@@ -12,4 +12,8 @@ public class UserService {
     public String getLoggedUser() {
         return sessionUser.getUser().getUserName();
     }
+
+    public long getLoggedUserId() {
+        return sessionUser.getUser().getUserId();
+    }
 }

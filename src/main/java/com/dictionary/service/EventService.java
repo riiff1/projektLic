@@ -12,7 +12,7 @@ import java.util.List;
 public class EventService {
 
     @Autowired
-    private SessionUser sessionUser;
+    private UserService userService;
 
     @Autowired
     private EventDao eventDao;
@@ -22,25 +22,21 @@ public class EventService {
     }
 
     public List<EventDto> getFutureEventsBySpecializationByUser(int specializationId) {
-        long userId = sessionUser.getUser().getUserId();
-        return eventDao.getFutureEventsBySpecializationByUser(userId, specializationId);
+        return eventDao.getFutureEventsBySpecializationByUser(userService.getLoggedUserId(), specializationId);
     }
 
     public List<EventDto> getAllEventsByUser() {
-        long userId = sessionUser.getUser().getUserId();
-        return eventDao.getAllEventsByUser(userId);
+        return eventDao.getAllEventsByUser(userService.getLoggedUserId());
     }
 
     public List<EventDto> getAllEventsBySpecializationByUser(int specializationId) {
-        long userId = sessionUser.getUser().getUserId();
-        return eventDao.getAllEventsBySpecializationByUser(userId, specializationId);
+        return eventDao.getAllEventsBySpecializationByUser(userService.getLoggedUserId(), specializationId);
     }
 
     public boolean insertToEvent(long eventId) {
 
         try {
-            long userId = sessionUser.getUser().getUserId();
-            eventDao.insertToEvent(userId, eventId);
+            eventDao.insertToEvent(userService.getLoggedUserId(), eventId);
             return true;
         } catch (MySQLIntegrityConstraintViolationException e) {
 

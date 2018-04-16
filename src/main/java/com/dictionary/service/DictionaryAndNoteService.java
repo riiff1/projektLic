@@ -11,14 +11,25 @@ import java.util.List;
 public class DictionaryAndNoteService {
 
     @Autowired
-    private SessionUser sessionUser;
+    private UserService userService;
 
     @Autowired
     private DictionaryAndNoteDao dictionaryAndNoteDao;
 
     public List<NoteAndDictionaryDto> getDictionaryAndNoteBySpecialization(long specializationId) {
-        long userId = sessionUser.getUser().getUserId();
-        List<NoteAndDictionaryDto> dictionaryAndNote = dictionaryAndNoteDao.getDictionaryAndNoteForUser(specializationId, userId);
+        List<NoteAndDictionaryDto> dictionaryAndNote = dictionaryAndNoteDao.getDictionaryAndNoteForUser(specializationId, userService.getLoggedUserId());
         return dictionaryAndNote;
+    }
+
+    public void removeNote(long noteId) {
+        dictionaryAndNoteDao.removeNote(noteId, userService.getLoggedUserId());
+    }
+
+    public void editNote(long noteId, String message) {
+        dictionaryAndNoteDao.editNote(noteId, userService.getLoggedUserId(), message);
+    }
+
+    public void insertNote(long dictionaryId, String message) {
+        dictionaryAndNoteDao.insertNote(userService.getLoggedUserId(), dictionaryId, message);
     }
 }
