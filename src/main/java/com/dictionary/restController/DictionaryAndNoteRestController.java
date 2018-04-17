@@ -32,7 +32,7 @@ public class DictionaryAndNoteRestController {
     }
 
     @RequestMapping(value = "/note/insertNote", method = RequestMethod.POST)
-    public void addNote(@RequestParam("dictionaryId") long dictionaryId, @RequestParam("message") String message) {
-        dictionaryAndNoteService.insertNote(dictionaryId, message);
+    public long addNote(@RequestParam("dictionaryId") long dictionaryId, @RequestParam("message") String message) {
+        return dictionaryAndNoteService.insertNote(dictionaryId, message);
     }
 }

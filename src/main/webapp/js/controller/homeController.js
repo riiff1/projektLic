@@ -10,10 +10,6 @@ app.controller('homeController', ['$scope', 'homeService', function ($scope, hom
         homeService.pickedSpecializationFunction(specialization);
     };
 
-    $scope.getNoteMessageForDictionary = function(dictionaryId) {
-        homeService.getNoteMessageForDictionary(dictionaryId);
-    };
-
     $scope.deleteNote = function (dictionaryAndNote) {
         homeService.deleteNote(dictionaryAndNote);
     };
@@ -33,11 +29,6 @@ app.controller('homeController', ['$scope', 'homeService', function ($scope, hom
 
     $scope.addNote = function(dictionaryAndNote) {
         homeService.addNote(dictionaryAndNote);
-    };
-
-    $scope.pickedWordFromSearch = function ($item) {
-        console.log("item");
-        console.log($item);
     };
 
     $scope.totalItems = 64;

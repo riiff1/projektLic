@@ -30,20 +30,9 @@ app.service('homeService',['$http','$window', function ($http, $window) {
             self.scope.dictionaries = response.data;
         });
     };
-    self.getNoteMessageForDictionary = function (dictionaryId) {
-        self.scope.isNoteMessage = false;
-        $http({
-            method: "GET",
-            url: "/note/getNoteMessageForDictionary",
-            params: {dictionaryId: dictionaryId}
-        }).then(function (response) {
-            /*console.log("aaaaa");
-            console.log(response);
-            self.scope.noteMessage = response;*/
-        });
-    };
 
     self.deleteNote = function (dictionaryAndNote) {
+        dictionaryAndNote.message = null;
         specializationIsShow = dictionaryAndNote.specializationId;
         $http({
             method: "DELETE",
@@ -51,9 +40,6 @@ app.service('homeService',['$http','$window', function ($http, $window) {
             params: {noteId: dictionaryAndNote.noteId}
         }).then(function (response) {
             this.pickedSpecializationFunction = specializationIsShow;
-            /*$window.location.reload();
-            this.pickedSpecializationFunction = specializationIsShow;
-            console.log("Usuniety");*/
         });
     };
 
@@ -77,7 +63,7 @@ app.service('homeService',['$http','$window', function ($http, $window) {
                 url: "/note/insertNote",
                 params: {dictionaryId: dictionaryId, message: message}
             }).then(function (response) {
-
+                dictionaryObjectFromList.noteId = response.data;
             });
         } else {
             $http({

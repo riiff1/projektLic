@@ -4,9 +4,17 @@ import com.dictionary.dto.DictionaryDto;
 import com.dictionary.dto.NoteAndDictionaryDto;
 import com.dictionary.dto.NoteDto;
 import com.dictionary.mapper.NoteMapper;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +61,20 @@ public class DictionaryAndNoteDao extends BaseDao {
         getTemplate().update(sqlUpdateNote, new Object[]{message, noteId, userId});
     }
 
-    public void insertNote(long userId, long dictionaryId, String message) {
-        getTemplate().update(sqlInsertNote, new Object[]{userId, dictionaryId, message});
+    public long insertNote(final long userId, final long dictionaryId, final String message) throws MySQLIntegrityConstraintViolationException {
+        //getTemplate().update(sqlInsertNote, new Object[]{userId, dictionaryId, message});
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        getTemplate().update(new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement statement = con.prepareStatement(sqlInsertNote, Statement.RETURN_GENERATED_KEYS);
+                statement.setLong(1, userId);
+                statement.setLong(2, dictionaryId);
+                statement.setString(3, message);
+                return statement;
+            }
+        },keyHolder);
+        return keyHolder.getKey().intValue();
     }
 }
