@@ -2,6 +2,7 @@ var app = angular.module('myApp');
 app.service('homeService',['$http','$window', function ($http, $window) {
     var self = this;
     var specializationIsShow= null;
+    var dictionaryObjectFromList;
     self.scope = null;
     self.setScope = function(scope){
         self.scope = scope;
@@ -20,6 +21,7 @@ app.service('homeService',['$http','$window', function ($http, $window) {
     };
     self.pickedSpecializationFunction = function (specialization) {
         self.scope.pickedSpecialization = specialization.name;
+        self.scope.isPickedSpecialization = true;
         $http({
             method: "GET",
             url: "/getDictionaryAndNoteBySpecialization",
@@ -56,6 +58,7 @@ app.service('homeService',['$http','$window', function ($http, $window) {
     };
 
     self.forModalParameter = function (dictionaryForModal) {
+        dictionaryObjectFromList = dictionaryForModal;
         self.scope.headerModal = dictionaryForModal.word;
         self.scope.modalNoteId = dictionaryForModal.noteId;
         self.scope.modalDictionaryId = dictionaryForModal.dictionaryId;
@@ -67,6 +70,7 @@ app.service('homeService',['$http','$window', function ($http, $window) {
     };
 
     self.saveDataFromModal = function (noteId, dictionaryId,  message) {
+        dictionaryObjectFromList.message = message;
         if(noteId === 0) {
             $http({
                 method: "POST",
