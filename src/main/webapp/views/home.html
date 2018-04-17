@@ -29,6 +29,10 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a href="/home" class="navbar-brand">Dictionary</a>
+                    <a class="navbar-brand"></a>
+                    <a class="navbar-brand"></a>
+                    <a class="navbar-brand"></a>
+                    <a href="/schedule" class="navbar-brand">Schedule</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" ><span class="glyphicon glyphicon-user" ></span> Logged as {{userNickName}}</a></li>
@@ -44,7 +48,7 @@
                 <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button"
                         id="dropdownSpecialization1" data-toggle="dropdown">
-                    Specializations
+                    Available specialization
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
@@ -52,71 +56,47 @@
                 </ul>
             </div>
             </div>
-            <div class="col-md-10"><h5>Specialization what You picked is <span style="color: #449d44; font-weight: bold"> {{pickedSpecialization}}</span></h5></div>
-
-
         </div>
     </div>
 
-    <br/>
-    <div class="container">
-        <form name="outerForm" class="tab-form-demo">
-            <uib-tabset active="activeForm">
-                <uib-tab index="0" heading="All words">
-                    <br/>
-
-
-                    <div class="container">
-                        <input type="text" ng-model="searchInDictionaries.$">
-                        <table class="table table-hover">
-                            <thead>
-                            <tr>
-                                <th scope="col" class="col-md-2">Word</th>
-                                <th scope="col" class="col-md-7">Expression</th>
-                                <th scope="col" class="col-md-3">Note</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="dictionary in dictionaries | filter:searchInDictionaries:strict">
-                                <td>{{dictionary.word}}</td>
-                                <td>{{dictionary.expression}}</td>
-                                <td>
-                                    <div class="text-center" ng-show="dictionary.message == null"><button data-toggle="modal" data-target="#noteModal" type="button" class="btn btn-success " ng-click="forModalParameter(dictionary)">Add note</button></div>
-                                    <div ng-show="dictionary.message != null">{{dictionary.message}}
-                                        <div class="text-center"><button data-toggle="modal" data-target="#noteModal" type="button" class="btn btn-warning" ng-click="forModalParameter(dictionary)">Edit</button> <button type="button" class="btn btn-danger" ng-click="deleteNote(dictionary)">Delete</button></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4"><ul uib-pagination direction-links="false" boundary-links="true" total-items="totalItems" ng-model="currentPage"></ul></div>
-                            <div class="col-md-4"></div>
-                        </div>
-
-                    </div>
-
-                </uib-tab>
-                <uib-tab index="1" heading="Find one meaning by words">
-                    <div class="container">
-                        <h4>Szukanie po word</h4>
-                        <pre>Model: {{ngModelOptionsSelected | json}}</pre>
-                        <input type="text" ng-model="ngModelOptionsSelected" ng-model-options="modelOptions" uib-typeahead="dictionary.word for dictionary in dictionaries | filter:{'word':$viewValue} | limitTo:8" typeahead-on-select="pickedWordFromSearch($item)" class="form-control">
-                    </div>
-                </uib-tab>
-                <uib-tab index="2" heading="Find one meaning by expression">
-                    <div class="container">
-                        <h4>Szukanie po znaczeniu</h4>
-                        <pre>Model: {{ngModelOptionsSelected | json}}</pre>
-                        <input type="text" ng-model="ngModelOptionsSelected" ng-model-options="modelOptions" uib-typeahead="dictionary.word for dictionary in dictionaries | filter:{'expression':$viewValue} | limitTo:8" class="form-control">
-                    </div>
-                </uib-tab>
-            </uib-tabset>
-        </form>
+    <div class="container text-center">
+        <div class="col-md-10"><h4>Specialization what You picked is <span style="color: #449d44; font-weight: bold"> {{pickedSpecialization}}</span></h4></div>
     </div>
+
+    <div class="container">
+        <input type="text" ng-model="searchInDictionaries.$">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col" class="col-md-2">Word</th>
+                <th scope="col" class="col-md-7">Expression</th>
+                <th scope="col" class="col-md-3">Note</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="dictionary in dictionaries | filter:searchInDictionaries:strict">
+                <td>{{dictionary.word}}</td>
+                <td>{{dictionary.expression}}</td>
+                <td>
+                    <div class="text-center" ng-show="dictionary.message == null"><button data-toggle="modal" data-target="#noteModal" type="button" class="btn btn-success " ng-click="forModalParameter(dictionary)">Add note</button></div>
+                    <div ng-show="dictionary.message != null">{{dictionary.message}}
+                        <div class="text-center"><button data-toggle="modal" data-target="#noteModal" type="button" class="btn btn-warning" ng-click="forModalParameter(dictionary)">Edit</button> <button type="button" class="btn btn-danger" ng-click="deleteNote(dictionary)">Delete</button></div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4"><ul uib-pagination direction-links="false" boundary-links="true" total-items="totalItems" ng-model="currentPage"></ul></div>
+            <div class="col-md-4"></div>
+        </div>
+
+    </div>
+
+    <br/>
 
     <!--Modal for new/edit Note-->
     <div id="noteModal" class="modal fade" role="dialog">
