@@ -14,7 +14,6 @@ public class UserRestController {
 
     @RequestMapping(value = "/loggedUser", method = RequestMethod.GET)
     public String loggedUserName() {
-        System.out.println(userService.getLoggedUser());
         return userService.getLoggedUser();
     }
 }
