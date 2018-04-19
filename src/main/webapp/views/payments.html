@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+
+
+    <script src="../js/controller/paymentsController.js"></script>
+    <script src="../js/service/paymentsService.js"></script>
+</head>
+<body>
+<div ng-controller="paymentsController">
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="/home" class="navbar-brand">Dictionary</a>
+                    <a class="navbar-brand"></a>
+                    <a class="navbar-brand"></a>
+                    <a class="navbar-brand"></a>
+                    <a href="/schedule" class="navbar-brand">Schedule</a>
+                    <a class="navbar-brand"></a>
+                    <a class="navbar-brand"></a>
+                    <a class="navbar-brand"></a>
+                    <a href="/payments" class="navbar-brand">Payments</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/edit/user" ><span class="glyphicon glyphicon-user" ></span> Logged as {{userNickName}}</a></li>
+                    <li><a href ="/logoutt"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <form name="outerForm" class="tab-form-demo">
+            <uib-tabset active="activeForm">
+                <uib-tab index="0" heading="Payments">
+                    Some payments
+                </uib-tab>
+                <uib-tab index="1" heading="Payments history">
+                    Some Tab Content
+                </uib-tab>
+            </uib-tabset>
+        </form>
+    </div>
+</div>
+</body>
+</html>
