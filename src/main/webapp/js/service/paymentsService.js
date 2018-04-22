@@ -72,7 +72,8 @@ app.service('paymentsService',['$http','$window', function ($http, $window) {
             method: "POST",
             url: "/payment/savePayment",
             params: {specializationList: specializationList}
-        }).then(function (response) {
+        }).then(function () {
+            $window.location.reload();
         });
     };
 }]);

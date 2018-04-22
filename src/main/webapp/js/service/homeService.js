@@ -16,7 +16,12 @@ app.service('homeService',['$http','$window', function ($http, $window) {
         });
 
         $http.get("/specialization/availableByCurrentUser").then(function (data) {
-            self.scope.specializations = data.data;
+            if(data.data.length !== 0) {
+                self.scope.noSpecialization = false;
+                self.scope.specializations = data.data;
+            } else {
+                self.scope.noSpecialization = true;
+            }
         });
     };
     self.pickedSpecializationFunction = function (specialization) {
