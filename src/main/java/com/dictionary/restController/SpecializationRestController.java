@@ -20,6 +20,11 @@ public class SpecializationRestController {
         return specializationService.getAvailableSpecialization();
     }
 
+    @RequestMapping(value = "/specialization/notAvailableByCurrentUser", method = RequestMethod.GET)
+    public List<SpecializationDto> getNotAvailableSpecialization() {
+        return specializationService.getNotAvailableSpecialization();
+    }
+
     @RequestMapping(value = "/specialization", method = RequestMethod.GET)
     public List<SpecializationDto> getAllSpecialization() {
         return specializationService.getAllSpecialization();

@@ -40,4 +40,9 @@ public class PaymentRestController {
         }
         return paymentService.getPaymentsByUserFromToDate(dateFrom, dateTo);
     }
+
+    @RequestMapping(value = "/payment/savePayment", method = RequestMethod.POST)
+    public void savePayment(@RequestParam("specializationList") List<Long> specializationList) {
+        paymentService.createPayment(specializationList);
+    }
 }

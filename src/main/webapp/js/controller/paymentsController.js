@@ -21,5 +21,9 @@ app.controller('paymentsController', ['$scope', 'paymentsService', function ($sc
 
     $scope.buyButton = function () {
         paymentsService.buyButton();
+    };
+
+    $scope.saveSpecializationForBuy = function () {
+        paymentsService.saveSpecializationForBuy();
     }
 }]);

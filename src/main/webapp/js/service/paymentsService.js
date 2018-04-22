@@ -18,20 +18,10 @@ app.service('paymentsService',['$http','$window', function ($http, $window) {
     };
 
     self.specializationsAvailableToBuy = function () {
-        $http.get("/specialization").then(function (data) {
+        $http.get("/specialization/notAvailableByCurrentUser").then(function (data) {
             self.scope.specializationsToBuy = data.data;
         });
     };
-
-    /*self.checkBoxWatcher = function (items) {
-        console.log("watcher")
-        var selectedItems = 0;
-        angular.forEach(items, function(item){
-            console.log("a")
-            selectedItems += item.selected ? 1 : 0;
-        });
-        self.scope.selectedItems = selectedItems;
-    };*/
 
     self.selectAll = function (valueOfCheckbox) {
         if(valueOfCheckbox) {
@@ -54,14 +44,35 @@ app.service('paymentsService',['$http','$window', function ($http, $window) {
         }
         console.log(self.scope.sel)
         console.log("aa")
-        for(i in self.scope.sel) {
-            if(self.scope.sel[i]) {
-                console.log(i, "aaaaaaaa");
-            }
-        }
     };
 
     self.buyButton = function () {
-        console.log("kupuj");
-    }
+        $http.get("/specialization/notAvailableByCurrentUser").then(function (data) {
+            var count = 0;
+            angular.forEach(data.data, function (specialization) {
+                for(i in self.scope.sel) {
+                    if(self.scope.sel[i] && specialization.specializationId == i) {
+                         count += specialization.prize;
+                    }
+                }
+
+            });
+            self.scope.prizeCounter = count;
+        });
+    };
+
+    self.saveSpecializationForBuy = function () {
+        var specializationList = [];
+        for(i in self.scope.sel) {
+            if(self.scope.sel[i]) {
+                specializationList.push(i);
+            }
+        }
+        $http({
+            method: "POST",
+            url: "/payment/savePayment",
+            params: {specializationList: specializationList}
+        }).then(function (response) {
+        });
+    };
 }]);

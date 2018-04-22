@@ -20,6 +20,10 @@ public class SpecializationService {
         return specializationDao.getAvailableSpecializationByUser(userService.getLoggedUserId());
     }
 
+    public List<SpecializationDto> getNotAvailableSpecialization() {
+        return specializationDao.getNotAvailableSpecializationByUser(userService.getLoggedUserId());
+    }
+
     public List<SpecializationDto> getAllSpecialization() {
         return specializationDao.getAllSpecialization();
     }
