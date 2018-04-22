@@ -41,10 +41,42 @@
     </div>
 
     <div class="container">
+        <button type="button" class="btn btn-success btn-md btn pull-right" ng-disabled="selectedItems == 0" ng-click="buyButton()">Buy specialization: {{selectedItems}}</button>
+    </div>
+
+    <div class="container">
         <form name="outerForm" class="tab-form-demo">
             <uib-tabset active="activeForm">
-                <uib-tab index="0" heading="Payments">
-                    Some payments
+                <uib-tab index="0" heading="Payments" ng-click="specializationsAvailableToBuy()">
+                    <br/>
+                    <div class="container">
+                        <table class="table table-hover" >
+                            <thead>
+                            <tr>
+                                <th scope="col" class="col-md-1"><input type="checkbox" ng-model="value" ng-click="selectAll(value)"></th>
+                                <th scope="col" class="col-md-6">Specialization</th>
+                                <th scope="col" class="col-md-2">Prize</th>
+                                <th scope="col" class="col-md-3">Expire Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!--<tr ng-repeat="specToBuy in specializationsToBuy">
+                                <td><input type="checkbox" name="payment_id[]" ng-model="specToBuy.selected" ng-checked="all"></td>
+                                <td><p>{{specToBuy.name}}</p></td>
+                                <td>
+                                    <p>{{specToBuy.prize}}</p>
+                                </td>
+                            </tr>-->
+                            <tr ng-repeat="specToBuy in specializationsToBuy">
+                                <td><input type="checkbox" name="payment_id[]" ng-model="sel[specToBuy.specializationId]" ng-click="selectFunction(specToBuy, sel[specToBuy.specializationId])"></td>
+                                <td><p>{{specToBuy.name}}</p></td>
+                                <td>
+                                    <p>{{specToBuy.prize}}</p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </uib-tab>
                 <uib-tab index="1" heading="Payments history">
                     Some Tab Content

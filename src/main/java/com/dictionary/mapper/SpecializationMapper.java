@@ -12,6 +12,7 @@ public class SpecializationMapper implements RowMapper<SpecializationDto> {
         SpecializationDto specializationDto = new SpecializationDto();
         specializationDto.setSpecializationId(resultSet.getInt("SPECIALIZATION_ID"));
         specializationDto.setName(resultSet.getString("NAME_"));
+        specializationDto.setPrize(resultSet.getInt("PRIZE"));
         return specializationDto;
     }
 }
