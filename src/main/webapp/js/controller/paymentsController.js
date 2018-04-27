@@ -17,7 +17,7 @@ app.controller('paymentsController', ['$scope', 'paymentsService', function ($sc
 
     $scope.selectFunction = function (spec, boolValue) {
         paymentsService.selectFunction(spec, boolValue);
-    }
+    };
 
     $scope.buyButton = function () {
         paymentsService.buyButton();
@@ -25,5 +25,9 @@ app.controller('paymentsController', ['$scope', 'paymentsService', function ($sc
 
     $scope.saveSpecializationForBuy = function () {
         paymentsService.saveSpecializationForBuy();
-    }
+    };
+
+    $scope.paymentHistory = function () {
+        paymentsService.paymentHistory();
+    };
 }]);

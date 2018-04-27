@@ -15,6 +15,10 @@
 
     <script src="../js/controller/paymentsController.js"></script>
     <script src="../js/service/paymentsService.js"></script>
+
+    <script>
+        window.onload = function() {setTimeout(function(){document.body.style.opacity="300";},1);};
+    </script>
 </head>
 <body>
 <div ng-controller="paymentsController">
@@ -71,8 +75,25 @@
                         </table>
                     </div>
                 </uib-tab>
-                <uib-tab index="1" heading="Payments history">
-                    Some Tab Content
+                <uib-tab index="1" heading="Payments history" ng-click="paymentHistory()">
+                    <div class="container">
+                        <table class="table table-hover" >
+                            <thead>
+                            <tr >
+                                <th scope="col" class="col-md-6">Creation Time</th>
+                                <th scope="col" class="col-md-2">Prize</th>
+                                <th scope="col" class="col-md-3">Expire Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="paymentHis in paymentsHistory">
+                                <td><p>{{paymentHis.creationTime | date: 'yyyy-MM-dd HH:mm:ss'}}</p></td>
+                                <td><p>{{paymentHis.prize}}</p></td>
+                                <td><p>{{paymentHis.expireDate}}</p></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </uib-tab>
             </uib-tabset>
         </form>

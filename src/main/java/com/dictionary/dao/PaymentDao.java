@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Component
 public class PaymentDao extends BaseDao{
 
-    private static final String sqlGetAllPaymentsByUser = "select * from TBL_PAYMENT where USER_ID_FK = ?;";
+    private static final String sqlGetAllPaymentsByUser = "select * from TBL_PAYMENT where USER_ID_FK = ? order by CREATION_TIME desc;";
     private static final String sqlPaymentsByUserFromToDate = "select * from TBL_PAYMENT "
             + "where USER_ID_FK = ? and (DATE (CREATION_TIME)between ? and ?);";
     private static final String sqlInsertPayment = "insert into TBL_PAYMENT values (null, ?, ?, ?, ?, ?);";
@@ -40,10 +40,6 @@ public class PaymentDao extends BaseDao{
     }
 
     public void insertPaymentSpecializationBatch(long paymentId, List<Long> specializations) {
-        /*for(Long specializationId : specializations) {
-
-        }*/
-
         getTemplate().batchUpdate(sqlInsertPaymentSpecialization, new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
@@ -57,13 +53,9 @@ public class PaymentDao extends BaseDao{
                 return specializations.size();
             }
         });
-
-        //getTemplate().update(sqlInsertPaymentSpecialization, new Object[]{});
     }
 
     public long insertPayment(final long userId, final Timestamp createdTimeStamp, final float prize, final Integer discount, final Timestamp expireDate) throws MySQLIntegrityConstraintViolationException {
-        //getTemplate().update(sqlInsertNote, new Object[]{userId, dictionaryId, message});
-
         KeyHolder keyHolder = new GeneratedKeyHolder();
         getTemplate().update(new PreparedStatementCreator() {
             @Override

@@ -17,7 +17,7 @@
     <script src="../js/service/homeService.js"></script>
 
     <script>
-        window.onload = function() {setTimeout(function(){document.body.style.opacity="150";},1);};
+        window.onload = function() {setTimeout(function(){document.body.style.opacity="200";},1);};
     </script>
 
 
@@ -59,9 +59,11 @@
                 </ul>
             </div>
             </div>
-            <div class="col-md-2" ng-show="noSpecialization">
+            <div class="col-md-5" ng-show="noSpecialization">
                 <div class="alert alert-warning" role="alert">
-                    You don't have any specializations. Go to <a href="/payments">payments tab</a>.
+                    <div class="text-center">
+                        You don't have any specializations. Go to <a href="/payments">payments tab</a>.
+                    </div>
                 </div>
             </div>
         </div>

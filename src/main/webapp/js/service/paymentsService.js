@@ -76,4 +76,10 @@ app.service('paymentsService',['$http','$window', function ($http, $window) {
             $window.location.reload();
         });
     };
+
+    self.paymentHistory = function () {
+        $http.get("/payment/allPaymentsByUser").then(function (data) {
+            self.scope.paymentsHistory = data.data;
+        });
+    };
 }]);
