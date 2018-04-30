@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" >
     <title>Title</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -12,10 +12,29 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
 
+    <script type="text/javascript" src="webjars/moment/2.22.1/moment.js"></script>
+    <script type="text/javascript" src="webjars/angular-ui-calendar/1.0.2/calendar.js"></script>
+    <script type="text/javascript" src="webjars/fullcalendar/3.1.0/dist/fullcalendar.js"></script>
+    <script type="text/javascript" src="webjars/fullcalendar/3.1.0/dist/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="webjars/fullcalendar/3.1.0/dist/gcal.js"></script>
+    <link rel="stylesheet" href="webjars/fullcalendar/3.1.0/dist/fullcalendar.css"/>
+    <script src='webjars/fullcalendar/3.1.0/dist/locale-all.js'></script>
+
     <script src="../js/controller/scheduleController.js"></script>
     <script src="../js/service/scheduleService.js"></script>
 </head>
-<body>
-
+<body ng-controller="scheduleController">
+<p>Piotr pomocy {{2+3}}</p>
+<div class="container">
+    <div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div ng-model="eventSources"
+                     calendar="myCalendar"
+                     ui-calendar="uiConfig.calendar" class="calendar"></div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
