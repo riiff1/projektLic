@@ -1,6 +1,7 @@
 var app = angular.module('myApp');
 app.service('scheduleService',['$http','$window', function ($http, $window) {
     var self = this;
+    var specData;
     self.scope = null;
     var name;
     self.setScope = function(scope){
@@ -20,13 +21,108 @@ app.service('scheduleService',['$http','$window', function ($http, $window) {
         };
         self.scope.eventsSchedule = [];
         self.scope.eventSources = [self.scope.eventsSchedule];
-        //pobranie eventow
+        //pobranie specjalizacji
+        $http.get("/specializationColor/availableByCurrentUser")
+            .then(function (response) {
+                specData = response.data;
+                self.scope.eventSpecialization = response.data;
+
+                //pobranie eventow
+                $http.get("/event/allEventsForAllSpecializationByUser")
+                    .then(function (response) {
+                        //self.scope.eventsSchedule.slice(0, self.scope.eventsSchedule.length);
+                        angular.forEach(response.data, function (value) {
+
+                            var colorSpec;
+                            angular.forEach(specData, function (valueSpec) {
+                                if(valueSpec.specializationId === value.specializationId) {
+
+                                    colorSpec = valueSpec.color;
+                                }
+                                /*console.log("a", specData.specializationId, value.specializationId, "a")
+                                if(specData.specializationId == value.specializationId) {
+
+                                    colorSpec = specData.color;
+                                }*/
+                            });
+                          //  console.log("raf")
+                           // console.log(value);
+                            self.scope.eventsSchedule.push({
+                                title:value.eventName,
+                                id: value.eventId,
+                                start: value.eventStartTime,
+                                end:value.eventEndTime,
+                                color: colorSpec,
+                            })
+                        });
+                        //console.log("aa")
+                        //console.log(self.scope.eventsSchedule);
+
+                    });
+
+                self.scope.uiConfig = {
+                    calendar: {
+                        minTime: "08:00:00",
+                        maxTime: "19:00:00",
+                        weekends: true,
+                        height: 650,
+                        firstDay: 1,
+                        locale: 'pl',
+                        lang: 'pl',
+                        timezone: 'local',
+                        allDaySlot: true,
+                        editable: true,
+                        header: {
+                            left: 'month,agendaWeek,agendaDay',
+                            center: 'title',
+                            right: 'prev,next today'
+                        },
+                        eventClick: self.scope.alertOnEventClick,
+                        eventDrop: self.scope.alertOnDrop,
+                        eventResize: self.scope.alertOnResize,
+                        // Select options
+                        selectable: true,
+                        selectHelper: true,
+                        unselectAuto: true,
+                        select: function (start, end, moment) {
+                            var title = prompt('Event Title:');
+                            var eventData;
+                            console.log("another:");
+                            console.log("aaaa");
+                            console.log(start);
+                            console.log(moment);
+                            console.log(end);
+                            console.log("aaaa");
+                            if (title) {
+                                eventData = {
+                                    notes: title,
+                                    treatmentDate: start._d,
+                                    userId:$window.sessionStorage.getItem('userInfo-userId'),
+                                    doctorId:1,
+                                    treatmentId:1
+                                };
+                                self.scope.addEvent(eventData);
+                            }
+                        }
+                    }
+                };
+            });
+
+        /*//pobranie eventow
         $http.get("/event/allEventsForAllSpecializationByUser")
             .then(function (response) {
                 console.log("response");
                 console.log(response);
                 //self.scope.eventsSchedule.slice(0, self.scope.eventsSchedule.length);
                 angular.forEach(response.data, function (value) {
+
+                    var colorSpec;
+                    var eventSpecId;
+                    angular.forEach(eventSpecialization, function (value) {
+                        console.log(value)
+                    });
+                    console.log("raf")
+                    console.log(value);
                     self.scope.eventsSchedule.push({
                         title:value.eventName,
                         id: value.eventId,
@@ -85,7 +181,7 @@ app.service('scheduleService',['$http','$window', function ($http, $window) {
                     }
                 }
             }
-        };
+        };*/
 
         self.scope.addEvent = function (eventData) {
             console.log("jestem w funkcji");

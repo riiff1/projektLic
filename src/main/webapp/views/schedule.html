@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="webjars/fullcalendar/3.1.0/dist/fullcalendar.css"/>
     <script src='webjars/fullcalendar/3.1.0/dist/locale-all.js'></script>
 
+    <script src="../js/angular-colorpicker-directive-master/js/color-picker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../js/angular-colorpicker-directive-master/css/color-picker.min.css"/>
+
     <script src="../js/controller/scheduleController.js"></script>
     <script src="../js/service/scheduleService.js"></script>
 </head>
@@ -44,6 +47,19 @@
             </ul>
         </div>
     </nav>
+</div>
+<div class="container">
+    <div class="row">
+        <h2>Legend: </h2>
+    </div>
+    <div class="row">
+        <div class="container" ng-repeat="spec in eventSpecialization">
+            <button color-picker color-picker-model="spec.color"  type="button" class="btn btn-success btn-sm" style="background-color: {{spec.color}} !important; border-color: {{spec.color}} !important;" >{{spec.specName}}</button>
+        </div>
+    </div>
+    <div class="row">
+        <br/>
+    </div>
 </div>
 <div class="container">
     <div>
