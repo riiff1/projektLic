@@ -24,7 +24,27 @@
     <script src="../js/service/scheduleService.js"></script>
 </head>
 <body ng-controller="scheduleController">
-<p>Piotr pomocy {{2+3}}</p>
+<div class="container">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="/home" class="navbar-brand">Dictionary</a>
+                <a class="navbar-brand"></a>
+                <a class="navbar-brand"></a>
+                <a class="navbar-brand"></a>
+                <a href="/schedule" class="navbar-brand">Schedule</a>
+                <a class="navbar-brand"></a>
+                <a class="navbar-brand"></a>
+                <a class="navbar-brand"></a>
+                <a href="/payments" class="navbar-brand">Payments</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/edit/user" ><span class="glyphicon glyphicon-user" ></span> Logged as {{userNickName}}</a></li>
+                <li><a href ="/logoutt"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
 <div class="container">
     <div>
         <div class="panel panel-default">

@@ -13,7 +13,8 @@ public class EventMapper implements RowMapper<EventDto> {
         eventDto.setEventId(resultSet.getInt("EVENT_ID"));
         eventDto.setEventName(resultSet.getString("EVENT_NAME"));
         eventDto.setSpecializationId(resultSet.getInt("SPECIALIZATION_ID_FK"));
-        eventDto.setEventTime(resultSet.getDate("EVENT_TIMESTAMP"));
+        eventDto.setEventStartTime(resultSet.getTimestamp("EVENT_START_TIMESTAMP"));
+        eventDto.setEventEndTime(resultSet.getTimestamp("EVENT_END_TIMESTAMP"));
         eventDto.setAddress(resultSet.getString("ADDRESS"));
         eventDto.setCity(resultSet.getString("CITY"));
         eventDto.setZip(resultSet.getString("ZIP"));

@@ -8,7 +8,8 @@ public class EventDto implements Serializable {
     private long eventId;
     private String eventName;
     private long specializationId;
-    private Date eventTime;
+    private Date eventStartTime;
+    private Date eventEndTime;
     private String address;
     private String city;
     private String zip;
@@ -39,12 +40,20 @@ public class EventDto implements Serializable {
         this.specializationId = specializationId;
     }
 
-    public Date getEventTime() {
-        return eventTime;
+    public Date getEventStartTime() {
+        return eventStartTime;
     }
 
-    public void setEventTime(Date eventTime) {
-        this.eventTime = eventTime;
+    public void setEventStartTime(Date eventStartTime) {
+        this.eventStartTime = eventStartTime;
+    }
+
+    public Date getEventEndTime() {
+        return eventEndTime;
+    }
+
+    public void setEventEndTime(Date eventEndTime) {
+        this.eventEndTime = eventEndTime;
     }
 
     public String getAddress() {

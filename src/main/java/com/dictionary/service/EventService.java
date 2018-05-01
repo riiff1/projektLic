@@ -33,6 +33,10 @@ public class EventService {
         return eventDao.getAllEventsBySpecializationByUser(userService.getLoggedUserId(), specializationId);
     }
 
+    public List<EventDto> getAllEventsForAllSpecializationByUser() {
+        return eventDao.getAllEventsForAllSpecializationByUser(userService.getLoggedUserId());
+    }
+
     public boolean insertToEvent(long eventId) {
 
         try {

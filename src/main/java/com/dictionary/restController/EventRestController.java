@@ -33,6 +33,11 @@ public class EventRestController {
         return eventService.getAllEventsBySpecializationByUser(specializationId);
     }
 
+    @RequestMapping(value = "/event/allEventsForAllSpecializationByUser", method = RequestMethod.GET)
+    public List<EventDto> getAllEventsForAllSpecializationByUser() {
+        return eventService.getAllEventsForAllSpecializationByUser();
+    }
+
     @RequestMapping(value = "/event/insert", method = RequestMethod.POST)
     public boolean insertToEvent(@RequestParam("eventId") int eventId) {
         return eventService.insertToEvent(eventId);
