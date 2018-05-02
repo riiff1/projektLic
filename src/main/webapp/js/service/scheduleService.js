@@ -6,18 +6,9 @@ app.service('scheduleService',['$http','$window', function ($http, $window) {
     var name;
     self.setScope = function(scope){
         self.scope = scope;
-
         self.scope.today = new Date();
-        var date = new Date();
-        var d = date.getDate();
-        var m = date.getMonth();
-        var y = date.getFullYear();
-        var treatmentIdInit;
-        self.scope.setScope = function (treatmentId) {
-            /*console.log("setScopeMethod~!");
-            console.log(treatmentId);
-            treatmentIdInit = treatmentId;*/
-            $location.path("/visitAppointment")
+        self.scope.setScope = function (scope) {
+            self.scope = scope;
         };
         self.scope.eventsSchedule = [];
         self.scope.eventSources = [self.scope.eventsSchedule];
@@ -30,7 +21,6 @@ app.service('scheduleService',['$http','$window', function ($http, $window) {
                 //pobranie eventow
                 $http.get("/event/allEventsForAllSpecializationByUser")
                     .then(function (response) {
-                        //self.scope.eventsSchedule.slice(0, self.scope.eventsSchedule.length);
                         angular.forEach(response.data, function (value) {
 
                             var colorSpec;
@@ -39,14 +29,7 @@ app.service('scheduleService',['$http','$window', function ($http, $window) {
 
                                     colorSpec = valueSpec.color;
                                 }
-                                /*console.log("a", specData.specializationId, value.specializationId, "a")
-                                if(specData.specializationId == value.specializationId) {
-
-                                    colorSpec = specData.color;
-                                }*/
                             });
-                          //  console.log("raf")
-                           // console.log(value);
                             self.scope.eventsSchedule.push({
                                 title:value.eventName,
                                 id: value.eventId,
@@ -55,22 +38,20 @@ app.service('scheduleService',['$http','$window', function ($http, $window) {
                                 color: colorSpec,
                             })
                         });
-                        //console.log("aa")
-                        //console.log(self.scope.eventsSchedule);
 
                     });
 
                 self.scope.uiConfig = {
                     calendar: {
                         minTime: "08:00:00",
-                        maxTime: "19:00:00",
+                        maxTime: "22:00:00",
                         weekends: true,
                         height: 650,
                         firstDay: 1,
                         locale: 'pl',
                         lang: 'pl',
                         timezone: 'local',
-                        allDaySlot: true,
+                        allDaySlot: false,
                         editable: true,
                         header: {
                             left: 'month,agendaWeek,agendaDay',
@@ -133,7 +114,7 @@ app.service('scheduleService',['$http','$window', function ($http, $window) {
                 });
                 console.log("aa")
                 console.log(self.scope.eventsSchedule);
-    
+
             });
 
         self.scope.uiConfig = {
@@ -203,4 +184,22 @@ app.service('scheduleService',['$http','$window', function ($http, $window) {
             }]
         });
     };
+
+
+    self.saveColorButton = function (specializationArray) {
+        console.log("save poszedl")
+        var dataRaf = $.param({
+            rows: specializationArray
+        });
+        $http({
+            method: 'POST',
+            url: '/specializationColor/postColor',
+            data: specializationArray,
+            headers: {'Content-Type': 'application/json'}
+        }).then(function (response) {
+            location.reload();
+        }, function (error) {
+
+        });
+    }
 }]);

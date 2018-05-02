@@ -24,4 +24,8 @@ public class SpecializationColorService {
         long userId = userService.getLoggedUserId();
         return specializationColorDao.getAvailableSpecializationByUser(userId, specializationDao.getAvailableSpecializationByUser(userId));
     }
+
+    public void updateSpecializationColor(List<SpecializationColorDto> specializationColorDto) {
+        specializationColorDao.updateSpecializationColorBatch(specializationColorDto);
+    }
 }

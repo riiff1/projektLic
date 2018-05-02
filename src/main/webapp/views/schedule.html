@@ -49,14 +49,17 @@
     </nav>
 </div>
 <div class="container">
-    <div class="row">
-        <h2>Legend: </h2>
-    </div>
-    <div class="row">
-        <div class="container" ng-repeat="spec in eventSpecialization">
-            <button color-picker color-picker-model="spec.color"  type="button" class="btn btn-success btn-sm" style="background-color: {{spec.color}} !important; border-color: {{spec.color}} !important;" >{{spec.specName}}</button>
-        </div>
-    </div>
+    <h2>
+        <span>Legend:</span>
+        <button type="button" class="btn btn-success" ng-click="saveColorButton(eventSpecialization)">Save colors</button>
+    </h2>
+    <hr>
+</div>
+<div class="container">
+    <span ng-repeat="spec in eventSpecialization">
+            <button color-picker color-picker-model="spec.color" type="button" class="btn btn-success btn-sm" style="background-color: {{spec.color}} !important; border-color: {{spec.color}} !important;">{{spec.specName}}</button>
+    </span>
+</div>
     <div class="row">
         <br/>
     </div>
