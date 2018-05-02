@@ -36,6 +36,7 @@ app.service('scheduleService',['$http','$window', function ($http, $window) {
                                 start: value.eventStartTime,
                                 end:value.eventEndTime,
                                 color: colorSpec,
+                                stick: true,
                             })
                         });
 
