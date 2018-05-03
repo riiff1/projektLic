@@ -43,8 +43,6 @@ app.service('paymentsService',['$http','$window', function ($http, $window) {
         } else {
             self.scope.selectedItems -=1;
         }
-        console.log(self.scope.sel)
-        console.log("aa")
     };
 
     self.buyButton = function () {

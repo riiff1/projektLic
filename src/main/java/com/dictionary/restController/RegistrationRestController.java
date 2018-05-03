@@ -21,7 +21,6 @@ public class RegistrationRestController {
                              @RequestParam("email") String email) {
 
         String crypted = new BCryptPasswordEncoder().encode(password);
-        System.out.println(userName + " " + password + " " + email);
         UserDto newUser = new UserDto();
         newUser.setUserName(userName);
         newUser.setPassword(crypted);
