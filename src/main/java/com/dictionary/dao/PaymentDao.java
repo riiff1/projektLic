@@ -1,7 +1,9 @@
 package com.dictionary.dao;
 
 import com.dictionary.dto.PaymentDto;
+import com.dictionary.dto.SpecializationDto;
 import com.dictionary.mapper.PaymentMapper;
+import com.dictionary.mapper.SpecializationMapper;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.sun.deploy.util.StringUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -25,6 +27,9 @@ public class PaymentDao extends BaseDao{
     private static final String sqlInsertPayment = "insert into TBL_PAYMENT values (null, ?, ?, ?, ?, ?);";
     private static final String sqlPrizeSum = "select sum(PRIZE) as prize from TBL_SPECIALIZATION where SPECIALIZATION_ID in (%s) limit 1;";
     private static final String sqlInsertPaymentSpecialization = "insert into TBL_PAYMENT_SPECIALIZATION values (null, ?, ?);";
+    private static final String sqlPaymentDetails = "select sp.* "
+            + "from TBL_PAYMENT_SPECIALIZATION paysp JOIN TBL_SPECIALIZATION sp ON paysp.SPECIALIZATION_ID_FK = sp.SPECIALIZATION_ID "
+            + "where paysp.PAYMENT_ID_FK = ?;";
 
     public List<PaymentDto> getAllPaymentsByUser(long userId) {
         return getTemplate().query(sqlGetAllPaymentsByUser, new Object[]{userId}, new PaymentMapper());
@@ -70,5 +75,9 @@ public class PaymentDao extends BaseDao{
             }
         },keyHolder);
         return keyHolder.getKey().longValue();
+    }
+
+    public List<SpecializationDto> getPaymentDetails(long paymentId) {
+        return getTemplate().query(sqlPaymentDetails, new Object[]{paymentId}, new SpecializationMapper());
     }
 }

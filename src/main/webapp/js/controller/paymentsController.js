@@ -30,4 +30,8 @@ app.controller('paymentsController', ['$scope', 'paymentsService', function ($sc
     $scope.paymentHistory = function () {
         paymentsService.paymentHistory();
     };
+
+    $scope.paymentDetails = function (paymentId) {
+        paymentsService.paymentDetails(paymentId);
+    }
 }]);

@@ -3,6 +3,7 @@ package com.dictionary.restController;
 
 
 import com.dictionary.dto.PaymentDto;
+import com.dictionary.dto.SpecializationDto;
 import com.dictionary.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,5 +45,10 @@ public class PaymentRestController {
     @RequestMapping(value = "/payment/savePayment", method = RequestMethod.POST)
     public void savePayment(@RequestParam("specializationList") List<Long> specializationList) {
         paymentService.createPayment(specializationList);
+    }
+
+    @RequestMapping(value = "/payment/paymentDetails", method = RequestMethod.GET)
+    public List<SpecializationDto> paymentDetails(@RequestParam("payment") long paymentId) {
+        return paymentService.getPaymentDetails(paymentId);
     }
 }

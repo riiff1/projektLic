@@ -2,6 +2,7 @@ package com.dictionary.service;
 
 import com.dictionary.dao.PaymentDao;
 import com.dictionary.dto.PaymentDto;
+import com.dictionary.dto.SpecializationDto;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,5 +46,9 @@ public class PaymentService {
         } catch (MySQLIntegrityConstraintViolationException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<SpecializationDto> getPaymentDetails(long paymentId) {
+        return paymentDao.getPaymentDetails(paymentId);
     }
 }

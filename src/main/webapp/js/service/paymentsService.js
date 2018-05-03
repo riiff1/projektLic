@@ -82,4 +82,14 @@ app.service('paymentsService',['$http','$window', function ($http, $window) {
             self.scope.paymentsHistory = data.data;
         });
     };
+
+    self.paymentDetails = function (paymentId) {
+        $http({
+            method: "GET",
+            url: "/payment/paymentDetails",
+            params: {payment: paymentId}
+        }).then(function () {
+            console.log("poszlo dobrze");
+        });
+    }
 }]);

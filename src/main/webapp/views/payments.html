@@ -54,7 +54,7 @@
                 <uib-tab index="0" heading="Payments" ng-click="specializationsAvailableToBuy()">
                     <br/>
                     <div class="container">
-                        <table class="table table-hover" >
+                        <table class="table table-hover" ng-hide="specializationsToBuy.length ==0">
                             <thead>
                             <tr>
                                 <th scope="col" class="col-md-1"><input type="checkbox" ng-model="value" ng-click="selectAll(value)"></th>
@@ -73,11 +73,12 @@
                             </tr>
                             </tbody>
                         </table>
+                        <span ng-hide="specializationsToBuy.length !=0">You have all available specialization. Go to <a style="display: inline-block;" href="home"><h4>Dictionary module</h4></a></span>
                     </div>
                 </uib-tab>
                 <uib-tab index="1" heading="Payments history" ng-click="paymentHistory()">
                     <div class="container">
-                        <table class="table table-hover" >
+                        <table class="table table-hover " style="cursor: pointer;">
                             <thead>
                             <tr >
                                 <th scope="col" class="col-md-6">Creation Time</th>
@@ -86,7 +87,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="paymentHis in paymentsHistory">
+                            <tr ng-repeat="paymentHis in paymentsHistory" ng-click="paymentDetails(paymentHis.paymentId)">
                                 <td><p>{{paymentHis.creationTime | date: 'yyyy-MM-dd HH:mm:ss'}}</p></td>
                                 <td><p>{{paymentHis.prize}}</p></td>
                                 <td><p>{{paymentHis.expireDate}}</p></td>
