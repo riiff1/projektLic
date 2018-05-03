@@ -31,7 +31,7 @@ app.controller('paymentsController', ['$scope', 'paymentsService', function ($sc
         paymentsService.paymentHistory();
     };
 
-    $scope.paymentDetails = function (paymentId) {
-        paymentsService.paymentDetails(paymentId);
+    $scope.paymentDetails = function (paymentId, paymentObject) {
+        paymentsService.paymentDetails(paymentId, paymentObject);
     }
 }]);

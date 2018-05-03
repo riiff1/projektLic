@@ -6,6 +6,7 @@ app.service('paymentsService',['$http','$window', function ($http, $window) {
     self.setScope = function(scope){
         self.scope = scope;
         self.scope.sel = {};
+        self.scope.paymentsHistory = {};
         self.scope.selectedItems = 0;
         $http({
             url: '/loggedUser',
@@ -79,17 +80,21 @@ app.service('paymentsService',['$http','$window', function ($http, $window) {
 
     self.paymentHistory = function () {
         $http.get("/payment/allPaymentsByUser").then(function (data) {
+            for(let i=0; i<data.data.length; i++) {
+                data.data[i].showDetails = false;
+            }
             self.scope.paymentsHistory = data.data;
         });
     };
 
-    self.paymentDetails = function (paymentId) {
+    self.paymentDetails = function (paymentId, paymentObject) {
         $http({
             method: "GET",
             url: "/payment/paymentDetails",
             params: {payment: paymentId}
-        }).then(function () {
-            console.log("poszlo dobrze");
+        }).then(function (response) {
+            paymentObject.showDetails = !paymentObject.showDetails;
+            paymentObject.detailsObject = response.data;
         });
     }
 }]);
