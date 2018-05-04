@@ -18,6 +18,7 @@ public class SpecializationColorDao extends BaseDao {
             "from TBL_SPECIALIZATION_COLOR col JOIN TBL_SPECIALIZATION spec ON col.SPECIALIZATION_ID_FK = spec.SPECIALIZATION_ID " +
             "where col.USER_ID_FK = ? and col.SPECIALIZATION_ID_FK in (%s);";
     private static final String sqlUpdateColor = "update TBL_SPECIALIZATION_COLOR set COLOR = ? where SPECIALIZATION_COLOR_ID = ?;";
+    private static final String sqlInsertDefaultColorForSpecialization = "insert into TBL_SPECIALIZATION_COLOR values (null, ?, ?, '#92b300');";
 
     public List<SpecializationColorDto> getAvailableSpecializationByUser(long userId, List<SpecializationDto> specializationIds) {
         String specializationIdsString = specializationIds.stream().map(spec -> String.valueOf(spec.getSpecializationId())).collect(Collectors.joining(", "));
@@ -38,5 +39,22 @@ public class SpecializationColorDao extends BaseDao {
                 return specializationColorDto.size();
             }
         });
+    }
+
+    public void insertDefaultColorForSpecializations(long userId, List<SpecializationDto> specializationDto) {
+        getTemplate().batchUpdate(sqlInsertDefaultColorForSpecialization, new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
+                SpecializationDto dto = specializationDto.get(i);
+                preparedStatement.setLong(1, userId);
+                preparedStatement.setLong(2, dto.getSpecializationId());
+            }
+
+            @Override
+            public int getBatchSize() {
+                return specializationDto.size();
+            }
+        });
+
     }
 }
