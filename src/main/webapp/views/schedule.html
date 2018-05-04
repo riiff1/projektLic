@@ -48,11 +48,17 @@
         </div>
     </nav>
 </div>
-<div class="container">
+<div class="container" ng-show="isSpecialization">
     <h2>
         <span>Legend:</span>
         <button type="button" class="btn btn-success" ng-click="saveColorButton(eventSpecialization)">Save colors</button>
     </h2>
+    <hr>
+</div>
+<div class="container" ng-show="!isSpecialization">
+    <h4>
+        <span>You don't have specialization. <a href="payments">Buy specializations</a> interesting You.</span>
+    </h4>
     <hr>
 </div>
 <div class="container">
