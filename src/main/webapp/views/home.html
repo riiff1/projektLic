@@ -85,12 +85,12 @@
             </thead>
             <tbody>
             <tr ng-repeat="dictionary in dictionaries | filter:searchInDictionaries:strict">
-                <td>{{dictionary.word}}</td>
+                <td><a style="cursor: pointer;" target="_blank" href="https://pl.wikipedia.org/wiki/{{dictionary.word}}">{{dictionary.word}}</a></td>
                 <td>{{dictionary.expression}}</td>
                 <td>
                     <div class="text-center" ng-show="dictionary.message == null"><button data-toggle="modal" data-target="#noteModal" type="button" class="btn btn-success " ng-click="forModalParameter(dictionary)">Add note</button></div>
                     <div ng-show="dictionary.message != null">{{dictionary.message}}
-                        <div class="text-center"><button data-toggle="modal" data-target="#noteModal" type="button" class="btn btn-warning" ng-click="forModalParameter(dictionary)">Edit</button> <button type="button" class="btn btn-danger" ng-click="deleteNote(dictionary)">Delete</button></div>
+                        <div class="text-center"><button data-toggle="modal" data-target="#noteModal" type="button" class="btn btn-warning" ng-click="forModalParameter(dictionary)">Edit</button> <button type="button" class="btn btn-danger" ng-really-message="Are you sure?" ng-really-click="deleteNote(dictionary)">Delete</button></div>
                     </div>
                 </td>
             </tr>
