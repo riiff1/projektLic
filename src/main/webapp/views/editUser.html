@@ -16,8 +16,8 @@
     <script src="../js/controller/editUserController.js"></script>
     <script src="../js/service/editUserService.js"></script>
 </head>
-<body>
-<div ng-controller="editUserController">
+<body ng-controller="editUserController">
+<div >
     <div class="container">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -27,6 +27,10 @@
                     <a class="navbar-brand"></a>
                     <a class="navbar-brand"></a>
                     <a href="/schedule" class="navbar-brand">Schedule</a>
+                    <a class="navbar-brand"></a>
+                    <a class="navbar-brand"></a>
+                    <a class="navbar-brand"></a>
+                    <a href="/payments" class="navbar-brand">Payments</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/edit/user" ><span class="glyphicon glyphicon-user" ></span> Logged as {{userNickName}}</a></li>
@@ -34,6 +38,85 @@
                 </ul>
             </div>
         </nav>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table class="table table-hover">
+                <tbody style="cursor: pointer;">
+                <tr ng-click="editName()" ng-mouseover="name = true" ng-mouseout="name = false">
+                    <td>User name:</td>
+                    <td>{{user.nickName}}</td>
+                    <td class="text-right"><span ng-class="{'glyphicon glyphicon-pencil': name}"></span>{{editString}}</td>
+                </tr>
+                <tr ng-click="editEmail()" ng-mouseover="email = true" ng-mouseout="email = false">
+                    <td>E-mail:</td>
+                    <td>{{user.email}}</td>
+                    <td class="text-right"><span ng-class="{'glyphicon glyphicon-pencil': email}"></span>{{editString}}</td>
+                </tr>
+                <tr ng-click="editPassword()" ng-mouseover="pass = true" ng-mouseout="pass = false">
+                    <td>Password:</td>
+                    <td></td>
+                    <td class="text-right"><span ng-class="{'glyphicon glyphicon-pencil': pass}"></span>{{editString}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+<!--Modal for edit specialization-->
+<div id="editModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit {{whatEdit}}</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div ng-show="isEditName" class="input-group">
+                        <span class="input-group-addon glyphicon glyphicon-user"></span>
+                        <input ng-change="wrongName = false" ng-blur="checkUser()" ng-model="userName" type="text" class="form-control" placeholder="Username" ng-style="wrongName && {'border-color' : 'red'}">
+                    </div>
+                    <div ng-show="isEditEmail" class="input-group">
+                        <span class="input-group-addon">@</span>
+                        <input ng-change="wrongEmail = false" ng-blur="checkEmail()" ng-model="userEmail" type="email" class="form-control" placeholder="E-mail" ng-style="wrongEmail && {'border-color' : 'red'}">
+                    </div>
+                    <br/>
+                    <div class="input-group">
+                        <span class="input-group-addon glyphicon glyphicon-lock"></span>
+                        <input ng-model="password" type="password" class="form-control" placeholder="Password">
+                    </div>
+                    <br/>
+                    <div ng-show="isEditPassword" class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">@</span>
+                        <input ng-model="newPassword" type="password" class="form-control " placeholder="New password">
+                        <input ng-blur="checkConfirm()" ng-model="confirmPassword" type="password" class="form-control" placeholder="Confirm password" ng-style="wrongConfirm && {'border-color' : 'red'}">
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div ng-show="wrongName"  class="container">
+                <span style="color: red">Username "<b>{{userName}}</b>" exist. Please choose other user name.</span>
+            </div>
+            <div ng-show="wrongEmail"  class="container">
+                <span style="color: red">Change e-mail. Wrong format.</span>
+            </div>
+            <div ng-show="wrongConfirm"  class="container">
+                <span style="color: red">Password is not the same. Please, correct password.</span>
+            </div>
+            <div class="modal-footer">
+                <button ng-show="isEditName" type="button" class="btn btn-success" ng-disabled="wrongName" ng-click="updateData(userName, password)">Update</button>
+                <button ng-show="isEditEmail" type="button" class="btn btn-success" ng-disabled="wrongEmail" ng-click="updateData(userEmail, password)">Update</button>
+                <button ng-show="isEditPassword" type="button" class="btn btn-success" ng-disabled="wrongConfirm" ng-click="updateData(newPassword, password)">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
     </div>
 </div>
 </body>

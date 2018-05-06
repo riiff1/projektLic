@@ -14,6 +14,8 @@ import java.sql.*;
 @Component
 public class UserDao extends BaseDao {
 
+    private static final String sqlExistUser = "SELECT EXISTS(SELECT * FROM TBL_USER WHERE USER_NAME = ?)";
+
     @Autowired
     private UserRoleDao userRoleDao;
 
@@ -57,5 +59,10 @@ public class UserDao extends BaseDao {
     public void insertUserAndRoles(UserDto userDto) throws MySQLIntegrityConstraintViolationException {
         int newId = insertUser(userDto);
         userRoleDao.insertUserRoles(newId);
+    }
+
+    public boolean existUser(String userName) {
+        long booleanNumber = getTemplate().queryForObject(sqlExistUser, new Object[]{userName}, Long.class);
+        return booleanNumber == 1 ? true: false;
     }
 }
