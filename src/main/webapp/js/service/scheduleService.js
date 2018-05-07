@@ -23,7 +23,6 @@ app.service('scheduleService',['$http','$window', function ($http, $window) {
                     $http.get("/event/allEventsForAllSpecializationByUser")
                         .then(function (response) {
                             angular.forEach(response.data, function (value) {
-
                                 var colorSpec;
                                 angular.forEach(specData, function (valueSpec) {
                                     if(valueSpec.specializationId === value.specializationId) {
@@ -37,8 +36,10 @@ app.service('scheduleService',['$http','$window', function ($http, $window) {
                                     start: value.eventStartTime,
                                     end:value.eventEndTime,
                                     color: colorSpec,
+                                    description: "When: " + moment(value.eventStartTime).format("HH:mm:ss") + " "  + moment(value.eventEndTime).format("HH:mm:ss")  + " Address: " + value.address + ", " + value.zip + " " + value.city + ". Phone: " + value.phone,
                                     stick: true,
                                 })
+
                             });
 
                         });
@@ -48,35 +49,52 @@ app.service('scheduleService',['$http','$window', function ($http, $window) {
                             minTime: "08:00:00",
                             maxTime: "22:00:00",
                             weekends: true,
+                            eventLimit: true,
                             height: 650,
                             firstDay: 1,
                             locale: 'pl',
                             lang: 'pl',
                             timezone: 'local',
                             allDaySlot: false,
-                            editable: true,
+                            editable: false,
                             header: {
                                 left: 'month,agendaWeek,agendaDay',
                                 center: 'title',
                                 right: 'prev,next today'
                             },
-                            eventClick: self.scope.alertOnEventClick,
+                            /*eventClick: function(calEvent) {
+
+                                alert('Event: ' + calEvent.title + calEvent.description);
+                                $(this).css('border-color', 'red');
+
+                            },*/
+                            eventRender: function (eventObj, $el) {
+                                $el.popover({
+                                    title: eventObj.title,
+                                    content: eventObj.description,
+                                    trigger: 'hover',
+                                    placement: 'top',
+                                    container: 'body'
+                                });
+                            },
                             eventDrop: self.scope.alertOnDrop,
                             eventResize: self.scope.alertOnResize,
                             // Select options
                             selectable: true,
                             selectHelper: true,
                             unselectAuto: true,
-                            /*                        select: function (start, end, moment) {
-                                                        var title = prompt('Event Title:');
-                                                        var eventData;
-                                                        if (title) {
-                                                            eventData = {
-                                                            };
-                                                            self.scope.addEvent(eventData);
-                                                        }
-                                                    }*/
+                            /*select: function (start, end, moment) {
+                                var title = prompt('Event Title:');
+                                var eventData;
+                                if (title) {
+                                    eventData = {};
+                                    self.scope.addEvent(eventData);
+                                }
+                            },*/
+
+
                         }
+
                     };
                 } else {
                     self.scope.isSpecialization = false;
@@ -96,7 +114,6 @@ app.service('scheduleService',['$http','$window', function ($http, $window) {
             }]
         });
     };
-
 
     self.saveColorButton = function (specializationArray) {
         var dataRaf = $.param({
