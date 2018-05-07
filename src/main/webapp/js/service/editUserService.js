@@ -14,18 +14,79 @@ app.service('editUserService',['$http','$window', function ($http, $window) {
                 self.scope.userNickName = data;
             }]
         });
+        $http({
+            method: "GET",
+            url: "/edit/getNickAndEmail"
+        }).then(function (response) {
+            self.scope.user = response.data;
+        });
     };
 
-    self.updateData = function(newValue, pass) {
+    self.updateData = function(newValue, passw) {
         if(self.scope.isEditName) {
         } else if(self.scope.isEditEmail) {
+            self.updateEmail(newValue, passw);
         } else {
+            self.checkConfirm();
+            if(!self.scope.wrongConfirm) {
+                self.updatePassword(newValue, passw);
+            }
         }
-        //$('#editModal').modal('hide');
+
+    };
+
+    self.updateNick = function(newNick, passw) {
+
+    };
+
+    self.updateEmail = function(newEmail, passw) {
+        var updEmail = $.param({
+            newEmail: newEmail,
+            passw: passw
+        });
+        $http({
+            method: 'POST',
+            url: '/edit/updateEmail',
+            data: updEmail,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (response) {
+            console.log(response.data)
+            if(response.data === true) {
+                location.reload();
+            } else {
+                self.scope.someThingWrong = true;
+            }
+        }, function (error) {
+            self.scope.someThingWrong = true;
+        });
+
+    };
+
+    self.updatePassword = function(newPass, passw) {
+        var updPass = $.param({
+            newPass: newPass,
+            passw: passw
+        });
+        $http({
+            method: 'POST',
+            url: '/edit/updatePass',
+            data: updPass,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function (response) {
+            console.log(response.data)
+            if(response.data === true) {
+                location.reload();
+            } else {
+                self.scope.someThingWrong = true;
+            }
+        }, function (error) {
+            self.scope.someThingWrong = true;
+        });
 
     };
 
     self.setFalseForInputs = function() {
+        self.scope.someThingWrong = false;
         self.scope.password = "";
         self.scope.isEditName = false;
         self.scope.isEditEmail = false;
@@ -79,7 +140,6 @@ app.service('editUserService',['$http','$window', function ($http, $window) {
         if(self.scope.userEmail !== undefined) {
             var re = /(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!\.)){0,61}[a-zA-Z0-9_-]?\.)+[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!$)){0,61}[a-zA-Z0-9_]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/;
             if(re.test(String(self.scope.userEmail).toLowerCase())) {
-                console.log("a")
             }
         } else {
             self.scope.wrongEmail = true;

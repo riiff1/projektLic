@@ -10,11 +10,16 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
+import java.util.List;
 
 @Component
 public class UserDao extends BaseDao {
 
     private static final String sqlExistUser = "SELECT EXISTS(SELECT * FROM TBL_USER WHERE USER_NAME = ?)";
+    private static final String sqlPassForCurrentUser = "select PASSWORD from TBL_USER where USER_ID = ?;";
+    private static final String sqlUpdatePass = "update TBL_USER set PASSWORD = ? where USER_ID = ?;";
+    private static final String sqlUpdateEmail = "update TBL_USER set EMAIL = ? where USER_ID = ?;";
+    private static final String sqlNickAndEmail = "select * from TBL_USER where USER_ID = ?;";
 
     @Autowired
     private UserRoleDao userRoleDao;
@@ -43,19 +48,6 @@ public class UserDao extends BaseDao {
         return keyHolder.getKey().intValue();
     }
 
-    public void deleteUser(int id) {
-        String sql = "DELETE FROM TBL_USER WHERE USER_ID=?";
-        getTemplate().update(sql, new Object[] {id});
-    }
-
-
-    public void updateTrade(int id, UserDto userDto) {
-        String sql = "update TBL_USER set LastName = ?, FirstName = ?, NickName = ?, Password = ? WHERE UserId = ?;";
-        Object[] params = new Object[]{userDto.getUserName(), userDto.getEmail(), userDto.getPassword(), userDto.getUserId()};
-        int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR};
-        getTemplate().update(sql, params, types);
-    }
-
     public void insertUserAndRoles(UserDto userDto) throws MySQLIntegrityConstraintViolationException {
         int newId = insertUser(userDto);
         userRoleDao.insertUserRoles(newId);
@@ -64,5 +56,27 @@ public class UserDao extends BaseDao {
     public boolean existUser(String userName) {
         long booleanNumber = getTemplate().queryForObject(sqlExistUser, new Object[]{userName}, Long.class);
         return booleanNumber == 1 ? true: false;
+    }
+
+    public String getPasswordByCurrentUser(long currentUserId) {
+        return getTemplate().queryForObject(sqlPassForCurrentUser, new Object[]{currentUserId}, String.class);
+
+    }
+
+    public boolean updatePass(long userId, String newPass) {
+        int row = getTemplate().update(sqlUpdatePass, new Object[]{newPass, userId});
+        return row == 1 ? true: false;
+    }
+
+    public boolean updateEmail(long userId, String newEmail) {
+        int row = getTemplate().update(sqlUpdateEmail, new Object[]{newEmail, userId});
+        return row == 1 ? true: false;
+    }
+
+    public UserDto getNickAndEmail(long userId) {
+        UserDto nickAndEmail = getTemplate().queryForObject(sqlNickAndEmail, new Object[] { userId }, new UserMapper());
+        nickAndEmail.setPassword(null);
+        nickAndEmail.setUserId(0);
+        return nickAndEmail;
     }
 }

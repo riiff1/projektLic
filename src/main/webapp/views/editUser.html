@@ -47,18 +47,15 @@
             <table class="table table-hover">
                 <tbody style="cursor: pointer;">
                 <tr ng-click="editName()" ng-mouseover="name = true" ng-mouseout="name = false">
-                    <td>User name:</td>
-                    <td>{{user.nickName}}</td>
+                    <td>User name: {{user.userName}}</td>
                     <td class="text-right"><span ng-class="{'glyphicon glyphicon-pencil': name}"></span>{{editString}}</td>
                 </tr>
                 <tr ng-click="editEmail()" ng-mouseover="email = true" ng-mouseout="email = false">
-                    <td>E-mail:</td>
-                    <td>{{user.email}}</td>
+                    <td>E-mail:{{user.email}}</td>
                     <td class="text-right"><span ng-class="{'glyphicon glyphicon-pencil': email}"></span>{{editString}}</td>
                 </tr>
                 <tr ng-click="editPassword()" ng-mouseover="pass = true" ng-mouseout="pass = false">
-                    <td>Password:</td>
-                    <td></td>
+                    <td>Password: <b>******</b></td>
                     <td class="text-right"><span ng-class="{'glyphicon glyphicon-pencil': pass}"></span>{{editString}}</td>
                 </tr>
                 </tbody>
@@ -109,10 +106,13 @@
             <div ng-show="wrongConfirm"  class="container">
                 <span style="color: red">Password is not the same. Please, correct password.</span>
             </div>
+            <div ng-show="someThingWrong"  class="container">
+                <span style="color: red">Something goes wrong. Try again</span>
+            </div>
             <div class="modal-footer">
-                <button ng-show="isEditName" type="button" class="btn btn-success" ng-disabled="wrongName" ng-click="updateData(userName, password)">Update</button>
-                <button ng-show="isEditEmail" type="button" class="btn btn-success" ng-disabled="wrongEmail" ng-click="updateData(userEmail, password)">Update</button>
-                <button ng-show="isEditPassword" type="button" class="btn btn-success" ng-disabled="wrongConfirm" ng-click="updateData(newPassword, password)">Update</button>
+                <button ng-show="isEditName" type="button" class="btn btn-success" ng-disabled="userName == undefined || userName == '' || wrongName || password == undefined || password == ''" ng-click="updateData(userName, password)">Update</button>
+                <button ng-show="isEditEmail" type="button" class="btn btn-success" ng-disabled="userEmail == undefined || userEmail == '' || wrongEmail || password == undefined || password == ''" ng-click="updateData(userEmail, password)">Update</button>
+                <button ng-show="isEditPassword" type="button" class="btn btn-success" ng-disabled="newPassword == undefined || newPassword == '' || wrongConfirm || password == undefined || password == ''" ng-click="updateData(newPassword, password)">Update</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>

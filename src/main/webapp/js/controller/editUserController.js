@@ -17,8 +17,8 @@ app.controller('editUserController', ['$scope', 'editUserService', function ($sc
         editUserService.editPassword();
     };
 
-    $scope.updateData = function (newValue, pass) {
-        editUserService.updateData(newValue, pass);
+    $scope.updateData = function (newValue, passw) {
+        editUserService.updateData(newValue, passw);
     };
 
     $scope.checkUser = function () {
