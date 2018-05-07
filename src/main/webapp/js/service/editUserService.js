@@ -50,7 +50,6 @@ app.service('editUserService',['$http','$window', function ($http, $window) {
             data: updEmail,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
-            console.log(response.data)
             if(response.data === true) {
                 location.reload();
             } else {
@@ -73,7 +72,6 @@ app.service('editUserService',['$http','$window', function ($http, $window) {
             data: updPass,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then(function (response) {
-            console.log(response.data)
             if(response.data === true) {
                 location.reload();
             } else {
