@@ -48,14 +48,16 @@ app.service('paymentsService',['$http','$window', function ($http, $window) {
     self.buyButton = function () {
         $http.get("/specialization/notAvailableByCurrentUser").then(function (data) {
             var count = 0;
+            var listToBuyVerification = {};
             angular.forEach(data.data, function (specialization) {
-                for(i in self.scope.sel) {
-                    if(self.scope.sel[i] && specialization.specializationId == i) {
-                         count += specialization.prize;
+                for (i in self.scope.sel) {
+                    if (self.scope.sel[i] && specialization.specializationId == i) {
+                        listToBuyVerification[i] = specialization;
+                        count += specialization.prize;
                     }
                 }
-
             });
+            self.scope.specializationsToBuyVerify = listToBuyVerification;
             self.scope.prizeCounter = count;
         });
     };

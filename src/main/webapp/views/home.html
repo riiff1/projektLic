@@ -52,7 +52,7 @@
                 <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button"
                         id="dropdownSpecialization1" data-toggle="dropdown" ng-disabled="noSpecialization">
-                    <span>Available specialization <span class="caret"></span></span>
+                    <span>Available specialization: {{specializations.length}} <span class="caret"></span></span>
                 </button>
                 <ul class="dropdown-menu">
                     <li ng-repeat="specialization in specializations" value="{{specialization.name}}" ng-click="pickedSpecializationFunction(specialization)"><a href>{{specialization.name}}</a></li>
